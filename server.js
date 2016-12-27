@@ -4,6 +4,7 @@ var webpack = require('webpack');
 var config = require('./webpack.config');
 var express = require('express');
 var stormpath = require('express-stormpath');
+var lessMiddleware = require('less-middleware');
 
 var app = express();
 
@@ -79,8 +80,25 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
+app.use(lessMiddleware(path.join(__dirname, 'src', 'assets', 'stylesheets'), {
+    dest: path.join(__dirname, 'public'),
+    options: {
+        compiler: {
+            compress: true
+        }
+    },
+    preprocess: {
+        path: function(pathname, req) {
+            return pathname.replace('/css/', '/');
+        }
+    },
+	force: true,
+    debug: true
+}));
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build/index.html'));
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 app.on('stormpath.ready', function () {
