@@ -11,7 +11,9 @@ export default class is extends React.Component {
             <DocumentTitle title='To Do'>
                 <div className='MasterPage'>
                     <Header />
-                    { this.props.children }
+                    <div className='component-container'>
+                        { this.props.children }
+                    </div>
                 </div>
             </DocumentTitle>
         );

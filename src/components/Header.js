@@ -5,7 +5,7 @@ import { LoginLink, LogoutLink, Authenticated, NotAuthenticated } from 'react-st
 export default class Header extends React.Component {
     render() {
         return (
-            <nav className="navbar navbar-default navbar-static-top" role="navigation">
+            <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                 <div className="container">
                     <div className="navbar-header">
                         <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-main-menu">
