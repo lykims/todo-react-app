@@ -5,6 +5,7 @@ A React web application to manage a To Do list.
 ## Development Tools
 
 * React
+* Node.js
 * Express.js
 * Stormpath (for user authentication)
 * Bootstrap
@@ -42,7 +43,7 @@ $ node server.js
 $ DEBUG=express:* node server.js
 ```
 
-* It might take a while for the Stormpath SDK to be ready. The web application is ready when there is the messsage :
+* It might take a while for the Stormpath SDK to be ready. The web application is ready when there is the message :
 
 ```
 $ =====> APP IS READY!

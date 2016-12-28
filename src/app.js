@@ -1,4 +1,4 @@
-import { MasterPage, IndexPage, LoginPage, RegistrationPage, ProfilePage, ForgotPasswordPage } from './pages';
+import { MasterPage, IndexPage, LoginPage, RegistrationPage, ProfilePage, ForgotPasswordPage } from './components';
 import ReactStormpath, { Router, HomeRoute, LoginRoute, AuthenticatedRoute } from 'react-stormpath';
 import React from 'react';
 import ReactDOM from 'react-dom';
