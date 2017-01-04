@@ -18,6 +18,9 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 // Stormpath Configurations
 app.use(stormpath.init(app, {
+    application: {
+        href: process.env.STORMPATH_APPLICATION_HREF
+    },
     website: true,
     web: {
         produces: ['application/json'],

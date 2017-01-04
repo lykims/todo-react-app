@@ -48,3 +48,4 @@ jspm_packages
 
 stormpath.yml
 /public/css
+.env
