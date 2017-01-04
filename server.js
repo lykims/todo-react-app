@@ -18,6 +18,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 // Stormpath Configurations
 app.use(stormpath.init(app, {
+    website: true,
     web: {
         produces: ['application/json'],
         debug: 'info',
