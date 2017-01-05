@@ -112,6 +112,10 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
 app.on('stormpath.ready', function () {
     app.listen(process.env.PORT || 3000, function() {
         console.log('\n\n=====> APP IS READY!');
