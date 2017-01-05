@@ -5,6 +5,7 @@ var config = require('./webpack.config');
 var express = require('express');
 var stormpath = require('express-stormpath');
 var lessMiddleware = require('less-middleware');
+var stormpathConfig = require('./stormpath.json');
 
 var app = express();
 
@@ -18,8 +19,14 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 // Stormpath Configurations
 app.use(stormpath.init(app, {
+    client: {
+        apiKey: {
+            id: process.env.STORMPATH_CLIENT_APIKEY_ID || stormpathConfig.client.apiKey.id,
+            secret: process.env.STORMPATH_CLIENT_APIKEY_SECRET || stormpathConfig.client.apiKey.secret
+        }
+    },
     application: {
-        href: process.env.STORMPATH_APPLICATION_HREF
+        href: process.env.STORMPATH_APPLICATION_HREF || stormpathConfig.application.href
     },
     website: true,
     web: {
@@ -101,7 +108,7 @@ app.use(lessMiddleware(path.join(__dirname, 'src', 'assets', 'stylesheets'), {
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('*', function (req, res) {
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 

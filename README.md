@@ -20,15 +20,20 @@ $ npm install
 
 * Create a Stormpath account and application at <https://stormpath.com/>
 
-* Create the file `stormpath.yml` in the root directory and add the following in the file :
+* Create the file `stormpath.json` in the root directory and add the following in the file :
 
 ```
-client:
-    apiKey:
-        id: YOUR_API_KEY_ID
-        secret: YOUR_API_KEY_SECRET
-application:
-    href: YOUR_APP_URL_STARTING_WITH_https://api.stormpath.com/v1/applications/
+{
+    "client": {
+        "apiKey": {
+            "id": "YOUR_API_KEY_ID",
+            "secret": "YOUR_API_KEY_SECRET"
+        }
+    },
+    "application": {
+        "href": "YOUR_APP_URL_STARTING_WITH_https://api.stormpath.com/v1/applications/"
+    }
+}
 ```
 
 * Run the program with the following command :

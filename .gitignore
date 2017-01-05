@@ -46,6 +46,6 @@ jspm_packages
 # Yarn Integrity file
 .yarn-integrity
 
-stormpath.yml
+stormpath.json
 /public/css
 .env
