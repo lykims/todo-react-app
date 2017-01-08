@@ -15,6 +15,7 @@ ReactDOM.render(
             <Route path='/register' component={RegistrationPage} />
             <AuthenticatedRoute>
                 <HomeRoute path='/todo' component={ToDoPage} />
+                <Route path='/profile' component={ProfilePage} />
             </AuthenticatedRoute>
         </HomeRoute>
     </Router>,
