@@ -6,11 +6,24 @@ import ToDoForm from './ToDoForm';
 import ToDoFilters from './ToDoFilters';
 import ToDoList from './ToDoList';
 
+const VisibilityFilters = {
+    SHOW_ALL: 'SHOW_ALL',
+    SHOW_PENDING: 'SHOW_PENDING',
+    SHOW_COMPLETED: 'SHOW_COMPLETED'
+};
+
+const ToDoStatusFilters = {
+    [VisibilityFilters.SHOW_ALL]: () => true,
+    [VisibilityFilters.SHOW_PENDING]: todo => !todo.completed,
+    [VisibilityFilters.SHOW_COMPLETED]: todo => todo.completed
+};
+
 export default class ToDoPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: []
+            items: [],
+            filter: VisibilityFilters.SHOW_ALL
         };
     }
     componentDidMount() {
@@ -27,6 +40,9 @@ export default class ToDoPage extends React.Component {
     updateItems(items) {
 		this.setState( { items } );
 	}
+    setFilter(filter) {
+        this.setState({ filter });
+    }
     render() {
         return (
             <DocumentTitle title={'To Do'}>
@@ -40,8 +56,8 @@ export default class ToDoPage extends React.Component {
                     <div className="row">
                         <div className="col-xs-12 col-sm-4 col-sm-offset-4">
                             <ToDoForm onFormSubmit={this.updateItems.bind(this)}/>
-                            <ToDoFilters/>
-                            <ToDoList items={this.state.items} updateItems={this.updateItems.bind(this)}/>
+                            <ToDoFilters visibilityFilters={VisibilityFilters} toDoStatusFilters={ToDoStatusFilters} setFilter={this.setFilter.bind(this)} items={this.state.items}/>
+                            <ToDoList {...this.state} updateItems={this.updateItems.bind(this)} toDoStatusFilters={ToDoStatusFilters}/>
                         </div>
                     </div>
                 </div>
