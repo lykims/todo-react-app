@@ -47,7 +47,7 @@ require('./router')(app);
 
 // Start app  ==================================================================
 app.on('stormpath.ready', function () {
-    mongoose.connect(process.env.MONGOLAB_URI || mongoLabConfig.uri);
+    mongoose.connect(process.env.MONGODB_URI || mongoLabConfig.uri);
     app.listen(process.env.PORT || 3000, function() {
         console.log('\n\n=====> APP IS READY!');
     });
