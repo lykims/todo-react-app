@@ -4,9 +4,10 @@ A React web application to manage a To Do list.
 
 ## Development Tools
 
+* MongoDB
+* Express.js
 * React
 * Node.js
-* Express.js
 * Stormpath (for user authentication)
 * Bootstrap
 
@@ -20,7 +21,7 @@ $ npm install
 
 * Create a Stormpath account and application at <https://stormpath.com/>
 
-* Create the file `stormpath.json` in the root directory and add the following in the file :
+* Create the file `stormpath.json` in the `config` directory and add the following in the file :
 
 ```
 {
@@ -33,6 +34,14 @@ $ npm install
     "application": {
         "href": "YOUR_APP_URL_STARTING_WITH_https://api.stormpath.com/v1/applications/"
     }
+}
+```
+
+* Create the file `mongolab.json` in the `config` directory and add the following in the file :
+
+```
+{
+    "uri": "YOUR_URI_STARTING_WITH_mongodb://"
 }
 ```
 

@@ -1,122 +1,53 @@
-var bodyParser = require('body-parser');
-var path = require('path');
-var webpack = require('webpack');
-var config = require('./webpack.config');
+// Imports =====================================================================
 var express = require('express');
+var path = require('path');
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+
+var webpack = require('webpack');
+var webpackConfig = require('./webpack.config');
+
 var stormpath = require('express-stormpath');
+var stormpathConfig = require('./config/stormpath.config');
+
 var lessMiddleware = require('less-middleware');
-var stormpathConfig = require('./stormpath.json');
+var lessMiddlewareConfig = require('./config/less.config');
 
+var mongoose = require('mongoose');
+var mongoLabConfig = require('./config/mongolab.json');
+
+
+// Configurations ==============================================================
 var app = express();
+var compiler = webpack(webpackConfig);
 
-var compiler = webpack(config);
-
-// Pack all JavaScript files into one bundle
+app.use(morgan('dev')); // Log requests to console
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
-    publicPath: config.output.publicPath
+    publicPath: webpackConfig.output.publicPath
 }));
-
-// Stormpath Configurations
-app.use(stormpath.init(app, {
-    client: {
-        apiKey: {
-            id: process.env.STORMPATH_CLIENT_APIKEY_ID || stormpathConfig.client.apiKey.id,
-            secret: process.env.STORMPATH_CLIENT_APIKEY_SECRET || stormpathConfig.client.apiKey.secret
-        }
-    },
-    application: {
-        href: process.env.STORMPATH_APPLICATION_HREF || stormpathConfig.application.href
-    },
-    website: true,
-    web: {
-        produces: ['application/json'],
-        debug: 'info',
-        login: {
-            form: {
-                fields: {
-                    login: {
-                        label: 'Email',
-                        placeholder: 'Email'
-                    }
-                }
-            }
-        }
-    }
-}));
-
-// Stormpath - Allow the form to change the first name, last name, email and password
-app.post('/me', bodyParser.json(), stormpath.loginRequired, function (req, res) {
-    function writeError(message) {
-        res.status(400);
-        res.json({ message: message, status: 400 });
-        res.end();
-    }
-
-    function saveAccount () {
-        req.user.givenName = req.body.givenName;
-        req.user.surname = req.body.surname;
-        req.user.email = req.body.email;
-
-        req.user.save(function (err) {
-            if (err) {
-                return writeError(err.userMessage || err.message);
-            }
-            res.end();
-        });
-    }
-
-    if (req.body.password) {
-        var application = req.app.get('stormpathApplication');
-
-        application.authenticateAccount({
-            username: req.user.username,
-            password: req.body.existingPassword
-        }, function (err) {
-            if (err) {
-                return writeError('The existing password that you entered was incorrect.');
-            }
-
-            req.user.password = req.body.password;
-
-            saveAccount();
-        });
-    }
-    else {
-        saveAccount();
-    }
-});
-
-app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
-
-app.use(lessMiddleware(path.join(__dirname, 'src', 'assets', 'stylesheets'), {
-    dest: path.join(__dirname, 'public'),
-    options: {
-        compiler: {
-            compress: true
-        }
-    },
-    preprocess: {
-        path: function(pathname, req) {
-            return pathname.replace('/css/', '/');
-        }
-    },
-	force: true,
-    debug: true
-}));
+app.use(lessMiddleware(
+    path.join(__dirname, 'src', 'assets', 'stylesheets'),
+    lessMiddlewareConfig)
+);
+app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
+app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
+app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
+app.use('/fonts', express.static(path.join(__dirname, '/node_modules/bootstrap/fonts')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(stormpath.init(app, stormpathConfig));
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
-});
 
-app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
-});
+// Routes ======================================================================
+require('./router')(app);
 
+
+// Start app  ==================================================================
 app.on('stormpath.ready', function () {
+    mongoose.connect(process.env.MONGOLAB_URI || mongoLabConfig.uri);
     app.listen(process.env.PORT || 3000, function() {
         console.log('\n\n=====> APP IS READY!');
     });
