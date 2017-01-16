@@ -39,6 +39,7 @@ module.exports = function (app) {
             _id: new ObjectId(req.body._id),
             username: req.user.username
         }, {
+            text: req.body.text,
             completed: req.body.completed
         }, function (err, todo) {
             if (err) {

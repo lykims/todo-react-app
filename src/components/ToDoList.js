@@ -11,7 +11,13 @@ export default class ToDoList extends React.Component {
         return (
             <div>
                 <ul>
-                    {toDoList.map((todo, index) => <ToDoItem key={index} updateItems={this.props.updateItems.bind(this)} {...todo} />)}
+                    {
+                        toDoList.map((todo, index) =>
+                            <ToDoItem
+                                key={index}
+                                {...todo}
+                                updateItems={this.props.updateItems.bind(this)} />)
+                    }
                 </ul>
             </div>
         );

@@ -1,6 +1,8 @@
 import React from 'react';
 import superagent from 'superagent';
 
+import InlineEdit from './InlineEdit';
+
 export default class ToDoItem extends React.Component {
     constructor(props) {
         super(props);
@@ -9,6 +11,7 @@ export default class ToDoItem extends React.Component {
         e.preventDefault();
         var todo = {
             _id: this.props._id,
+            text: this.props.text,
             completed: !this.props.completed
         };
         superagent.put('/api/todos')
@@ -31,11 +34,11 @@ export default class ToDoItem extends React.Component {
             });
     }
     render() {
-        var { _id, text, completed } = this.props;
+        var todo = this.props;
         return (
             <li>
-                <input type="checkbox" checked={completed} onChange={this.checkCompleted.bind(this)}/>
-                {text}
+                <input type="checkbox" checked={todo.completed} onChange={this.checkCompleted.bind(this)}/>
+                <InlineEdit todo={todo} editing={false} updateItems={this.props.updateItems}/>
                 <a onClick={this.removeItem.bind(this)}>
                     <span className="glyphicon glyphicon-trash"></span>
                 </a>

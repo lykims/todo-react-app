@@ -55,9 +55,17 @@ export default class ToDoPage extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-xs-12 col-sm-4 col-sm-offset-4">
-                            <ToDoForm onFormSubmit={this.updateItems.bind(this)}/>
-                            <ToDoFilters visibilityFilters={VisibilityFilters} toDoStatusFilters={ToDoStatusFilters} setFilter={this.setFilter.bind(this)} items={this.state.items}/>
-                            <ToDoList {...this.state} updateItems={this.updateItems.bind(this)} toDoStatusFilters={ToDoStatusFilters}/>
+                            <ToDoForm
+                                onFormSubmit={this.updateItems.bind(this)}/>
+                            <ToDoFilters
+                                visibilityFilters={VisibilityFilters}
+                                toDoStatusFilters={ToDoStatusFilters}
+                                setFilter={this.setFilter.bind(this)}
+                                items={this.state.items}/>
+                            <ToDoList
+                                {...this.state}
+                                updateItems={this.updateItems.bind(this)}
+                                toDoStatusFilters={ToDoStatusFilters}/>
                         </div>
                     </div>
                 </div>
