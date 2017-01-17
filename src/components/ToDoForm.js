@@ -9,7 +9,8 @@ export default class ToDoForm extends React.Component {
 		e.preventDefault();
         var task = this.refs.item.value.trim();
         var todo = {
-            text: task
+            text: task,
+            order: this.props.listCount > 0 ? this.props.listCount : 0
         };
         if(task) {
             superagent.post('/api/todos')

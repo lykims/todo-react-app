@@ -2,7 +2,10 @@ import React from 'react';
 
 export default class ToDoFilters extends React.Component {
     getCountByFilter(filter, items) {
-        return items.filter(this.props.toDoStatusFilters[filter]).length;
+        if(filter && items) {
+            return items.filter(this.props.toDoStatusFilters[filter]).length;
+        }
+        return 0;
     }
     render() {
         const VisibilityFilters = this.props.visibilityFilters;

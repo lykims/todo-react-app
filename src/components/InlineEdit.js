@@ -28,10 +28,10 @@ export default class InlineEdit extends React.Component {
         var todo = {
             _id: this.props.todo._id,
             text: task,
-            completed: this.props.todo.completed
+            completed: this.props.todo.completed,
+            order: this.props.todo.order
         };
         if(task && task !== this.props.todo.text) {
-            console.log('update');
             superagent.put('/api/todos')
                 .send(todo)
                 .end((err, res) => {

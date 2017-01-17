@@ -32,9 +32,11 @@ export default class ToDoPage extends React.Component {
                 if (err) {
                     return console.error(err);
                 }
-                this.setState({
-                    items: res.body
-                });
+                if(res.body) {
+                    this.setState({
+                        items: res.body
+                    });
+                }
             });
     }
     updateItems(items) {
@@ -56,6 +58,7 @@ export default class ToDoPage extends React.Component {
                     <div className="row">
                         <div className="col-xs-12 col-sm-4 col-sm-offset-4">
                             <ToDoForm
+                                listCount={this.state.items.length}
                                 onFormSubmit={this.updateItems.bind(this)}/>
                             <ToDoFilters
                                 visibilityFilters={VisibilityFilters}

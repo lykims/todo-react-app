@@ -11,7 +11,7 @@ function getTodos(res, username) {
             res.send(err);
         }
         res.json(todos);
-    });
+    }).sort([['order', 1]]);
 };
 
 module.exports = function (app) {
@@ -24,7 +24,8 @@ module.exports = function (app) {
         Todo.create({
             username: req.user.username,
             text: req.body.text,
-            completed: false
+            completed: false,
+            order: req.body.order
         }, function (err, todo) {
             if (err) {
                 res.send(err);
@@ -40,7 +41,8 @@ module.exports = function (app) {
             username: req.user.username
         }, {
             text: req.body.text,
-            completed: req.body.completed
+            completed: req.body.completed,
+            order: req.body.order
         }, function (err, todo) {
             if (err) {
                 res.send(err);

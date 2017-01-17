@@ -12,7 +12,8 @@ export default class ToDoItem extends React.Component {
         var todo = {
             _id: this.props._id,
             text: this.props.text,
-            completed: !this.props.completed
+            completed: !this.props.completed,
+            order: this.props.order
         };
         superagent.put('/api/todos')
             .send(todo)
@@ -36,13 +37,13 @@ export default class ToDoItem extends React.Component {
     render() {
         var todo = this.props;
         return (
-            <li>
+            <div>
                 <input type="checkbox" checked={todo.completed} onChange={this.checkCompleted.bind(this)}/>
                 <InlineEdit todo={todo} editing={false} updateItems={this.props.updateItems}/>
                 <a onClick={this.removeItem.bind(this)}>
                     <span className="glyphicon glyphicon-trash"></span>
                 </a>
-            </li>
+            </div>
         );
     }
 }
