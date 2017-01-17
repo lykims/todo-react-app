@@ -41,21 +41,37 @@ export default class ToDoList extends React.Component {
     }
     onSortEnd({oldIndex, newIndex}) {
         this.props.items[oldIndex].order = newIndex;
-        this.props.items[newIndex].order = oldIndex;
+        var startIndex = 0, endIndex = 0, operation = 0;
+        if(oldIndex > newIndex) {
+            startIndex = newIndex;
+            endIndex = oldIndex;
+            operation = 1;
+        }
+        else if(oldIndex < newIndex) {
+            startIndex = oldIndex + 1;
+            endIndex = newIndex + 1;
+            operation = -1;
+        }
+        for(var i = startIndex; i < endIndex; i++) {
+            this.props.items[i].order = i + operation;
+        }
+        this.props.updateItems(arrayMove(this.props.items, oldIndex, newIndex));
+
         superagent.put('/api/todos')
             .send(this.props.items[oldIndex])
             .end((err, res) => {
                 if (err) {
                     return console.error(err);
                 }
-                superagent.put('/api/todos')
-                    .send(this.props.items[newIndex])
-                    .end((err, res) => {
-                        if (err) {
-                            return console.error(err);
-                        }
-                        this.props.updateItems(res.body);
-                    });
+                for(var i = startIndex; i < endIndex; i++) {
+                    superagent.put('/api/todos')
+                        .send(this.props.items[i])
+                        .end((err, res) => {
+                            if (err) {
+                                return console.error(err);
+                            }
+                        });
+                }
             });
     };
     render() {
