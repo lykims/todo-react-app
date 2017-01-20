@@ -9,7 +9,7 @@ A React web application to manage a To Do list.
 * React
 * Node.js
 * Stormpath (for user authentication)
-* Bootstrap
+* Material Design
 
 ## Getting Started
 

@@ -1,42 +1,34 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { LoginForm } from 'react-stormpath';
+import { Card, CardTitle } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export default class LoginPage extends React.Component {
     render() {
         return (
             <DocumentTitle title={'Login'}>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xs-12">
-                            <h3>Login</h3>
-                            <hr />
-                        </div>
-                    </div>
+                <Card className="container form-container">
+                    <CardTitle title="Log In" className="card-title"/>
                     <LoginForm>
-                        <div className="login-form">
-                            <div className="row">
-                                <div className="col-xs-12 col-sm-4 col-sm-offset-4">
-                                    <div className="form-group form-line">
-                                        <input type="text" className="form-control" name="username" placeholder="Email" />
-                                        <label htmlFor="username" className="control-label">Email</label>
-                                    </div>
-                                    <div className="form-group form-line">
-                                        <input type="password" className="form-control" name="password" placeholder="Password" />
-                                        <label htmlFor="password" className="control-label">Password</label>
-                                    </div>
-                                    <div className="form-group">
-                                        <a href="/forgot">Forgot Password?</a>
-                                    </div>
-                                    <div className="form-group">
-                                        <p className="alert alert-danger" spIf="form.error"><span spBind="form.errorMessage" /></p>
-                                        <button type="submit" className="btn btn-primary">Login</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="form-line">
+                            <TextField name="username" hintText="Email" floatingLabelText="Email" type="email"/>
+                        </div>
+                        <div className="form-line">
+                            <TextField name="password" hintText="Password" floatingLabelText="Password" type="password"/>
+                        </div>
+                        <div className="form-line link-line">
+                            <a href="/forgot">Forgot Password?</a>
+                        </div>
+                        <div>
+                            <p className="error-message" data-spIf="form.error"><span data-spBind="form.errorMessage" /></p>
+                        </div>
+                        <div className="form-line submit-btn">
+                            <RaisedButton label="Login" primary={true} type="submit"/>
                         </div>
                     </LoginForm>
-                </div>
+                </Card>
             </DocumentTitle>
         );
     }

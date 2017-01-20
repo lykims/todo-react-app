@@ -1,6 +1,7 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import superagent from 'superagent';
+import { Card, CardTitle } from 'material-ui/Card';
 
 import ToDoForm from './ToDoForm';
 import ToDoFilters from './ToDoFilters';
@@ -48,15 +49,9 @@ export default class ToDoPage extends React.Component {
     render() {
         return (
             <DocumentTitle title={'To Do'}>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xs-12">
-                            <h3>To Do</h3>
-                            <hr />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-xs-12 col-sm-4 col-sm-offset-4">
+                <Card className="container todo-container">
+                    <CardTitle title="To Do" className="card-title"/>
+                    <div>
                             <ToDoForm
                                 listCount={this.state.items.length}
                                 onFormSubmit={this.updateItems.bind(this)}/>
@@ -69,9 +64,8 @@ export default class ToDoPage extends React.Component {
                                 {...this.state}
                                 updateItems={this.updateItems.bind(this)}
                                 toDoStatusFilters={ToDoStatusFilters}/>
-                        </div>
                     </div>
-                </div>
+                </Card>
             </DocumentTitle>
         );
     };

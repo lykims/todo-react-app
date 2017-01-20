@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import superagent from 'superagent';
+import TextField from 'material-ui/TextField';
 
 export default class InlineEdit extends React.Component {
     constructor(props) {
@@ -24,7 +25,7 @@ export default class InlineEdit extends React.Component {
     }
     updateItem(e) {
         e.preventDefault();
-        var task = this.refs.item.value.trim();
+        var task = this.refs.item.input.value.trim();
         var todo = {
             _id: this.props.todo._id,
             text: task,
@@ -51,12 +52,13 @@ export default class InlineEdit extends React.Component {
         if(this.state.editing) {
             return(
                 <form onSubmit={this.updateItem.bind(this)}>
-                    <input type='text' ref='item' className='form-control' defaultValue={this.props.todo.text}/>
+                    <TextField ref="item" defaultValue={this.props.todo.text} />
                 </form>
             );
         } else {
             return(
-                <div onDoubleClick={this.editItem.bind(this)}>
+                <div onDoubleClick={this.editItem.bind(this)}
+                    className={(this.props.todo.completed ? 'strikethrough text-muted' : '')}>
                     {this.props.todo.text}
                 </div>
             );

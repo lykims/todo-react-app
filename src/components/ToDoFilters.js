@@ -1,4 +1,5 @@
 import React from 'react';
+import {Tabs, Tab} from 'material-ui/Tabs';
 
 export default class ToDoFilters extends React.Component {
     getCountByFilter(filter, items) {
@@ -7,26 +8,27 @@ export default class ToDoFilters extends React.Component {
         }
         return 0;
     }
-    render() {
+    getLabel(filter, items) {
         const VisibilityFilters = this.props.visibilityFilters;
         const FilterTitle = {
             [VisibilityFilters.SHOW_ALL]: 'All',
             [VisibilityFilters.SHOW_PENDING]: 'Pending',
             [VisibilityFilters.SHOW_COMPLETED]: 'Completed',
         };
+        return FilterTitle[filter] + ' (' + this.getCountByFilter(filter, items) + ')';
+    }
+    render() {
+        const VisibilityFilters = this.props.visibilityFilters;
         const filters = Object.keys(VisibilityFilters).map(key => VisibilityFilters[key]);
-        const items = this.props.items;
+        var items = this.props.items;
         return (
-            <ul>
+            <Tabs>
                 {filters.map(filter =>
-                    <li key={filter}>
-                        <button type="button" className="btn btn-default"
-                            onClick={() => this.props.setFilter(filter)}>
-                            {FilterTitle[filter]} ({this.getCountByFilter(filter, items)})
-                        </button>
-                    </li>
+                    <Tab key={filter}
+                        label={this.getLabel(filter, items)}
+                        onActive={() => this.props.setFilter(filter)}/>
                 )}
-            </ul>
+            </Tabs>
         );
     }
 }

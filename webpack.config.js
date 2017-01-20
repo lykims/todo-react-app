@@ -21,6 +21,13 @@ module.exports = {
             test: /\.js$/,
             loaders: ['babel'],
             include: path.join(__dirname, 'src')
+        }, {
+            test: /\.less$/,
+            loaders: ['style', 'css', 'less'],
+            include: path.join(__dirname, 'src')
+        }, {
+            test: /\.(woff|woff2|eot|ttf|svg|jpe?g|gif|png)$/,
+            loader: 'file-loader'
         }]
     }
 };

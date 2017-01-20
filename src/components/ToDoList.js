@@ -1,37 +1,25 @@
 import React from 'react';
-import {SortableContainer, SortableElement, SortableHandle, arrayMove} from 'react-sortable-hoc';
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+import {Table, TableBody} from 'material-ui/Table';
 import superagent from 'superagent';
 
 import ToDoItem from './ToDoItem';
 
-const DragHandle = SortableHandle(() => <span>::</span>);
-
 const SortableItem = SortableElement((attr, {value}) => {
-    if(attr.showDragHandle) {
-        return (
-            <li>
-                <DragHandle />
-                <ToDoItem {...attr.todo} updateItems={attr.updateItems} />
-            </li>
-        )
-    }
-    else {
-        return (
-            <li>
-                <ToDoItem {...attr.todo} updateItems={attr.updateItems} />
-            </li>
-        )
-    }
-
+    return (
+        <ToDoItem {...attr.todo} updateItems={attr.updateItems} showDragHandle={attr.showDragHandle} />
+    )
 });
 
 const SortableList = SortableContainer((attr, {items}) => {
 	return (
-		<ul>
-			{attr.todo.map((todo, index) =>
-                <SortableItem key={`item-${index}`} index={index} value={todo} todo={todo} showDragHandle={attr.showDragHandle} updateItems={attr.updateItems} />
-            )}
-		</ul>
+        <Table>
+            <TableBody>
+                {attr.todo.map((todo, index) =>
+                    <SortableItem key={`item-${index}`} index={index} value={todo} todo={todo} showDragHandle={attr.showDragHandle} updateItems={attr.updateItems} />
+                )}
+            </TableBody>
+        </Table>
 	);
 });
 

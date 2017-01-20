@@ -1,11 +1,26 @@
 import React from 'react';
 import superagent from 'superagent';
+import {SortableHandle} from 'react-sortable-hoc';
+import {TableRow, TableRowColumn} from 'material-ui/Table';
+import Checkbox from 'material-ui/Checkbox';
+import IconButton from 'material-ui/IconButton';
+import DragHandleIcon from 'material-ui/svg-icons/editor/drag-handle';
+import CloseIcon from 'material-ui/svg-icons/navigation/close';
 
 import InlineEdit from './InlineEdit';
+
+const DragHandle = SortableHandle(() =>
+    <div>
+        <IconButton><DragHandleIcon color={"#CCCCCC"}/></IconButton>
+    </div>
+);
 
 export default class ToDoItem extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            hover: false
+        }
     }
     checkCompleted(e) {
         e.preventDefault();
@@ -37,13 +52,24 @@ export default class ToDoItem extends React.Component {
     render() {
         var todo = this.props;
         return (
-            <div>
-                <input type="checkbox" checked={todo.completed} onChange={this.checkCompleted.bind(this)}/>
-                <InlineEdit todo={todo} editing={false} updateItems={this.props.updateItems}/>
-                <a onClick={this.removeItem.bind(this)}>
-                    <span className="glyphicon glyphicon-trash"></span>
-                </a>
-            </div>
+            <TableRow>
+                {this.props.showDragHandle &&
+                    <TableRowColumn className="icon-cell">
+                        <DragHandle />
+                    </TableRowColumn>
+                }
+                <TableRowColumn className="icon-cell">
+                    <Checkbox checked={todo.completed} onCheck={this.checkCompleted.bind(this)}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                    <InlineEdit todo={todo} editing={false} updateItems={this.props.updateItems}/>
+                </TableRowColumn>
+                <TableRowColumn className="icon-cell">
+                    <a onClick={this.removeItem.bind(this)}>
+                        <IconButton><CloseIcon color={"#CCCCCC"}/></IconButton>
+                    </a>
+                </TableRowColumn>
+            </TableRow>
         );
     }
 }
