@@ -18,9 +18,8 @@ const DragHandle = SortableHandle(() =>
 export default class ToDoItem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            hover: false
-        }
+        this.checkCompleted = this.checkCompleted.bind(this);
+        this.removeItem = this.removeItem.bind(this);
     }
     checkCompleted(e) {
         e.preventDefault();
@@ -59,13 +58,13 @@ export default class ToDoItem extends React.Component {
                     </TableRowColumn>
                 }
                 <TableRowColumn className="icon-cell">
-                    <Checkbox checked={todo.completed} onCheck={this.checkCompleted.bind(this)}/>
+                    <Checkbox checked={todo.completed} onCheck={this.checkCompleted}/>
                 </TableRowColumn>
                 <TableRowColumn>
                     <InlineEdit todo={todo} editing={false} updateItems={this.props.updateItems}/>
                 </TableRowColumn>
                 <TableRowColumn className="icon-cell">
-                    <a onClick={this.removeItem.bind(this)}>
+                    <a onClick={this.removeItem}>
                         <IconButton><CloseIcon color={"#CCCCCC"}/></IconButton>
                     </a>
                 </TableRowColumn>

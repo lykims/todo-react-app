@@ -52,7 +52,7 @@ export default class InlineEdit extends React.Component {
         if(this.state.editing) {
             return(
                 <form onSubmit={this.updateItem.bind(this)}>
-                    <TextField ref="item" defaultValue={this.props.todo.text} />
+                    <TextField name={this.props.todo._id} ref="item" defaultValue={this.props.todo.text} />
                 </form>
             );
         } else {

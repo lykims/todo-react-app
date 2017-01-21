@@ -66,7 +66,7 @@ export default class ToDoList extends React.Component {
         var items = this.props.items.filter(this.props.toDoStatusFilters[this.props.filter]);
         var showAll = this.props.filter === 'SHOW_ALL';
         return (
-            <SortableList todo={items} onSortEnd={this.onSortEnd.bind(this)} useDragHandle={showAll} showDragHandle={showAll} updateItems={this.props.updateItems.bind(this)} />
+            <SortableList todo={items} onSortEnd={this.onSortEnd.bind(this)} useDragHandle={true} showDragHandle={showAll} updateItems={this.props.updateItems.bind(this)} />
         )
     }
 }
