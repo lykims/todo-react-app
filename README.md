@@ -2,6 +2,8 @@
 
 A React web application to manage a To Do list.
 
+<https://lykims-todo-list.herokuapp.com/>
+
 ## Development Tools
 
 * MongoDB
@@ -62,3 +64,12 @@ $ DEBUG=express:* node server.js
 ```
 $ =====> APP IS READY!
 ```
+
+## Resources
+* MongoDB : <https://mlab.com/>
+* Express : <http://expressjs.com/>
+* Facebook's React : <https://facebook.github.io/react/>
+* Node.js : <https://nodejs.org/>
+* Stormpath for user authentication : <https://stormpath.com/>
+* Google's Material Design : <http://www.material-ui.com/>
+* <https://unsplash.com/> for free high-resolution photos
