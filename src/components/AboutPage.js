@@ -18,7 +18,7 @@ export default class AboutPage extends React.Component {
                         <CardText>
                             <TrendingUpIcon style={iconStyles}/>
                             <p>
-                                I heard about React a lot these days and decided to create a project that helps me in exploring this JavaScript library in trend in web development. Find code source on <a href="">GitHub</a>.
+                                I heard about React a lot these days and decided to create a project that helps me in exploring this JavaScript library in trend in web development. Find code source on <a href="https://github.com/lykims/todo-react-app">GitHub</a>.
                             </p>
                         </CardText>
                     </Card>
