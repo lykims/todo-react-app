@@ -1,6 +1,5 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
-import { RegistrationForm } from 'react-stormpath';
 import { Card, CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -11,7 +10,7 @@ export default class RegistrationPage extends React.Component {
             <DocumentTitle title={'Registration'}>
                 <Card className="container form-container">
                     <CardTitle title="Sign Up" className="card-title"/>
-                    <RegistrationForm>
+                    <div>
                         <div className="form-line">
                             <TextField name="givenName"
                                 hintText="First Name"
@@ -44,7 +43,7 @@ export default class RegistrationPage extends React.Component {
                         <div className="form-line submit-btn">
                             <RaisedButton label="Register" primary={true} type="submit"/>
                         </div>
-                    </RegistrationForm>
+                    </div>
                 </Card>
             </DocumentTitle>
         );

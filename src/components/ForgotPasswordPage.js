@@ -1,6 +1,5 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
-import { ResetPasswordForm, LoginLink } from 'react-stormpath';
 import { Card, CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -11,7 +10,7 @@ export default class ForgotPasswordPage extends React.Component {
             <DocumentTitle title={'Reset Password'}>
                 <Card className="container form-container">
                     <CardTitle title="Reset Password" className="card-tile"/>
-                    <ResetPasswordForm>
+                    <div>
                         <div data-spIf="form.sent">
                             <p>
                                 We have sent a password reset link to the email address of the account that you specified.<br />
@@ -34,7 +33,7 @@ export default class ForgotPasswordPage extends React.Component {
                                 <RaisedButton label="Request Password Reset" primary={true} type="submit"/>
                             </div>
                         </div>
-                    </ResetPasswordForm>
+                    </div>
                 </Card>
             </DocumentTitle>
         );

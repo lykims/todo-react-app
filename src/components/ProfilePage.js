@@ -1,6 +1,5 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
-import { UserProfileForm } from 'react-stormpath';
 import { Card, CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -11,7 +10,7 @@ export default class ProfilePage extends React.Component {
             <DocumentTitle title={'My Profile'}>
                 <Card className="container form-container">
                     <CardTitle title="My Profile" className="card-title"/>
-                    <UserProfileForm>
+                    <div>
                         <div className="form-line">
                             <TextField name="givenName"
                                 hintText="First Name"
@@ -54,7 +53,7 @@ export default class ProfilePage extends React.Component {
                         <div className="form-line submit-btn">
                             <RaisedButton label="Update" primary={true} type="submit"/>
                         </div>
-                    </UserProfileForm>
+                    </div>
                 </Card>
             </DocumentTitle>
         );

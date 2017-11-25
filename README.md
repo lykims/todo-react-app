@@ -10,33 +10,17 @@ A React web application to manage a To Do list.
 * Express.js
 * React
 * Node.js
-* Stormpath (for user authentication)
+* ~~Stormpath (for user authentication) is deprecated.~~
 * Material Design
 
 ## Getting Started
 
-* Clone the repository and install packages :
+* Clone the repository
+
+* Install packages :
 
 ```
 $ npm install
-```
-
-* Create a Stormpath account and application at <https://stormpath.com/>
-
-* Create the file `stormpath.json` in the `config` directory and add the following in the file :
-
-```
-{
-    "client": {
-        "apiKey": {
-            "id": "YOUR_API_KEY_ID",
-            "secret": "YOUR_API_KEY_SECRET"
-        }
-    },
-    "application": {
-        "href": "YOUR_APP_URL_STARTING_WITH_https://api.stormpath.com/v1/applications/"
-    }
-}
 ```
 
 * Create the file `mongolab.json` in the `config` directory and add the following in the file :
@@ -59,7 +43,7 @@ $ node server.js
 $ DEBUG=express:* node server.js
 ```
 
-* It might take a while for the Stormpath SDK to be ready. The web application is ready when there is the message :
+* It might take a while to connect to the database. The web application is ready when there is the message :
 
 ```
 $ =====> APP IS READY!
@@ -70,6 +54,5 @@ $ =====> APP IS READY!
 * Express : <http://expressjs.com/>
 * Facebook's React : <https://facebook.github.io/react/>
 * Node.js : <https://nodejs.org/>
-* Stormpath for user authentication : <https://stormpath.com/>
 * Google's Material Design : <http://www.material-ui.com/>
 * <https://unsplash.com/> for free high-resolution photos

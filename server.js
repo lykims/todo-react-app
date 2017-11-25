@@ -1,9 +1,6 @@
 // Imports =====================================================================
 var express = require('express');
 
-var stormpath = require('express-stormpath');
-var stormpathConfig = require('./config/stormpath.config');
-
 var bodyParser = require('body-parser');
 var path = require('path');
 
@@ -24,7 +21,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
     publicPath: webpackConfig.output.publicPath
 }));
-app.use(stormpath.init(app, stormpathConfig));
 app.use(morgan('dev')); // Log requests to console
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -36,9 +32,15 @@ require('./router')(app);
 
 
 // Start app  ==================================================================
-app.on('stormpath.ready', function () {
-    mongoose.connect(process.env.MONGODB_URI || mongoLabConfig.uri);
-    app.listen(process.env.PORT || 3000, function() {
-        console.log('\n\n=====> APP IS READY!');
-    });
+var mongooseOptions = {
+    server: {
+        socketOptions: {
+            socketTimeoutMS: 0,
+            connectionTimeout: 0
+        }
+    }
+};
+mongoose.connect(process.env.MONGODB_URI || mongoLabConfig.uri, mongooseOptions);
+app.listen(process.env.PORT || 3000, function() {
+    console.log('\n\n=====> APP IS READY!');
 });

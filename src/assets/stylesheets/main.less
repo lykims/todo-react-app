@@ -14,8 +14,16 @@ body {
     font-family: 'Roboto', Helvetica, sans-serif !important;
 }
 
-#app-container, .MasterPage, .component-container, .splash {
+#app-container, .MasterPage, {
     height: 100%;
+}
+
+.MasterPage {
+    background: url('../images/unsplash-fmd_cru6otk-cathryn-lavery.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .container {
@@ -38,13 +46,7 @@ a:hover {
     color: #59DFF0;
 }
 
-.splash {
-    background: url('../images/unsplash-fmd_cru6otk-cathryn-lavery.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-
+.welcome {
     .container {
         background-color: transparent !important;
         box-shadow: none !important;
