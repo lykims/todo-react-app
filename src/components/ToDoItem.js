@@ -24,7 +24,7 @@ export default class ToDoItem extends React.Component {
     checkCompleted(e) {
         e.preventDefault();
         var todo = {
-            _id: this.props._id,
+            id: this.props.id,
             text: this.props.text,
             completed: !this.props.completed,
             order: this.props.order
@@ -40,7 +40,7 @@ export default class ToDoItem extends React.Component {
     }
     removeItem(e) {
         e.preventDefault();
-        superagent.del(`/api/todos/${this.props._id}`)
+        superagent.del(`/api/todos/${this.props.id}`)
             .end((err, res) => {
                 if (err) {
                     console.error(err);

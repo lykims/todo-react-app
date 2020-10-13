@@ -6,11 +6,10 @@ A React web application to manage a To Do list.
 
 ## Development Tools
 
-* MongoDB
+* PostgreSQL
 * Express.js
 * React
 * Node.js
-* ~~Stormpath (for user authentication) is deprecated.~~
 * Material Design
 
 ## Getting Started
@@ -23,12 +22,10 @@ A React web application to manage a To Do list.
 $ npm install
 ```
 
-* Create the file `mongolab.json` in the `config` directory and add the following in the file :
+* Install `psql` command, create the database `todo_dev`, and run :
 
 ```
-{
-    "uri": "YOUR_URI_STARTING_WITH_mongodb://"
-}
+$ npx sequelize-cli db:migrate
 ```
 
 * Run the program with the following command :
@@ -43,14 +40,16 @@ $ node server.js
 $ DEBUG=express:* node server.js
 ```
 
-* It might take a while to connect to the database. The web application is ready when there is the message :
+* The web application is ready when there is the message :
 
 ```
-$ =====> APP IS READY!
+$ APP IS READY! 🚀
 ```
+
+The web application will be accessible at <http://localhost:3000>
 
 ## Resources
-* MongoDB : <https://mlab.com/>
+* PostgreSQL : <https://www.postgresql.org/>
 * Express : <http://expressjs.com/>
 * Facebook's React : <https://facebook.github.io/react/>
 * Node.js : <https://nodejs.org/>

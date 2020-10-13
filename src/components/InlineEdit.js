@@ -19,7 +19,7 @@ export default class InlineEdit extends React.Component {
     }
     setTextModeOnClick(e) {
         const domNode = ReactDOM.findDOMNode(this);
-        if((!domNode || !domNode.contains(e.target))) {
+        if ((!domNode || !domNode.contains(e.target))) {
             this.editItem(false)
         }
     }
@@ -27,12 +27,12 @@ export default class InlineEdit extends React.Component {
         e.preventDefault();
         var task = this.refs.item.input.value.trim();
         var todo = {
-            _id: this.props.todo._id,
+            id: this.props.todo.id,
             text: task,
             completed: this.props.todo.completed,
             order: this.props.todo.order
         };
-        if(task && task !== this.props.todo.text) {
+        if (task && task !== this.props.todo.text) {
             superagent.put('/api/todos')
                 .send(todo)
                 .end((err, res) => {
@@ -49,7 +49,7 @@ export default class InlineEdit extends React.Component {
         this.setState({editing: enabled});
     }
     render() {
-        if(this.state.editing) {
+        if (this.state.editing) {
             return(
                 <form onSubmit={this.updateItem.bind(this)}>
                     <TextField name={this.props.todo._id} ref="item" defaultValue={this.props.todo.text} />

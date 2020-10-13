@@ -46,7 +46,9 @@ jspm_packages
 # Yarn Integrity file
 .yarn-integrity
 
-/config/mongolab.json
+# IDE
+.idea
+
 /public/css
 .env
 package-lock.json

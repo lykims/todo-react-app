@@ -1,0 +1,19 @@
+{
+  "development": {
+    "username": "kiml",
+    "password": "password",
+    "database": "todo_dev",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": 0
+  },
+  "production": {
+    "username": "kiml",
+    "password": "password",
+    "database": "todo_production",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": 0,
+    "use_env_variable": "DATABASE_URL"
+  }
+}

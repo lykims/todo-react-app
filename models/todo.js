@@ -1,8 +1,25 @@
-var mongoose = require('mongoose');
-
-module.exports = mongoose.model('Todo', {
-    username: String,
-    text: String,
-    completed: Boolean,
-    order: Number
-});
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class todo extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  };
+  todo.init({
+    text: DataTypes.STRING,
+    completed: DataTypes.BOOLEAN,
+    order: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'todo',
+  });
+  return todo;
+};

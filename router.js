@@ -1,64 +1,64 @@
-var Todo = require('./models/todo');
 var path = require('path');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var db = require('./models/index.js');
 
-function getTodos(res, username) {
-    Todo.find({ username: username }, function (err, todos) {
-        if (err) {
-            res.send(err);
-        }
+function getTodos(res) {
+    db.todo.findAll({order: [['order', 'ASC']]})
+    .then(todos => {
         res.json(todos);
-    }).sort([['order', 1]]);
+    })
+    .catch(err => {
+        res.send(err);
+    });
 };
 
 module.exports = function (app) {
 
     app.get('/api/todos', (req, res, next) => {
-        getTodos(res, "test_user");
+        getTodos(res);
     });
 
     app.post('/api/todos', (req, res, next) => {
-        Todo.create({
-            username: "test_user",
+        const todo = {
             text: req.body.text,
             completed: false,
             order: req.body.order
-        }, function (err, todo) {
-            if (err) {
-                res.send(err);
-            }
-            getTodos(res, "test_user");
+        };
+        db.todo.findOrCreate({ where: todo })
+        .then(([todoObj, created]) => {
+            getTodos(res);
+        })
+        .catch(err => {
+            res.send(err);
         });
     });
 
     app.put('/api/todos', (req, res, next) => {
-        const ObjectId = mongoose.Types.ObjectId;
-        Todo.findOneAndUpdate({
-            _id: new ObjectId(req.body._id),
-            username: "test_user"
-        }, {
+        const todo = {
             text: req.body.text,
             completed: req.body.completed,
             order: req.body.order
-        }, function (err, todo) {
-            if (err) {
-                res.send(err);
-            }
-            getTodos(res, "test_user");
+        };
+        db.todo.update(
+          todo,
+          { where: { id: req.body.id } }
+        )
+        .then(result => {
+            getTodos(res);
+        })
+        .catch(err => {
+            res.send(err);
         });
     });
 
     app.delete('/api/todos/:todoid', (req, res, next) => {
-        const ObjectId = mongoose.Types.ObjectId;
-        Todo.remove({
-            _id: new ObjectId(req.params.todoid),
-            username: "test_user"
-        }, function (err, todo) {
-            if (err) {
-                res.send(err);
-            }
-            getTodos(res, "test_user");
+        db.todo.destroy(
+          { where: { id: req.params.todoid } }
+        )
+        .then(result => {
+            getTodos(res);
+        })
+        .catch(err => {
+            res.send(err);
         });
     });
 
