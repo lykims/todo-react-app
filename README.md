@@ -50,8 +50,8 @@ The web application will be accessible at <http://localhost:3000>
 
 ## Resources
 * PostgreSQL : <https://www.postgresql.org/>
-* Express : <http://expressjs.com/>
-* Facebook's React : <https://facebook.github.io/react/>
+* Express : <https://expressjs.com/>
+* Facebook's React : <https://reactjs.org/>
 * Node.js : <https://nodejs.org/>
-* Google's Material Design : <http://www.material-ui.com/>
+* Google's Material Design : <https://material-ui.com/>
 * <https://unsplash.com/> for free high-resolution photos
